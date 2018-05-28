@@ -31,9 +31,9 @@ public class DatasourceConfig {
     @Value("${spring.datasource.driver-class-name}")
     public String driverClass;
 
-    @Bean(name = "DS")
-    @Primary
-    @Order(1)
+    //    @Bean(name = "DS")
+//    @Primary
+//    @Order(1)
     public DataSource getDatasource() {
         BasicDataSource basicDataSource = new BasicDataSource();
         basicDataSource.setDriverClassName(driverClass);
