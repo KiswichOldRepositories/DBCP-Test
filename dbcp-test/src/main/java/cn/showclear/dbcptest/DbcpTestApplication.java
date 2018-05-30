@@ -2,6 +2,8 @@ package cn.showclear.dbcptest;
 
 import cn.showclear.dbcptest.pojo.DatabaseBean;
 import cn.showclear.dbcptest.pojo.TestModeBean;
+import cn.showclear.dbcptest.service.BaseDatesourceRunner;
+import cn.showclear.dbcptest.service.DatasourceRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
@@ -14,6 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 
 @SpringBootApplication
 public class DbcpTestApplication implements CommandLineRunner {
@@ -22,59 +25,26 @@ public class DbcpTestApplication implements CommandLineRunner {
         SpringApplication.run(DbcpTestApplication.class, args);
     }
 
-    @Qualifier("tomcatDS")
-    @Autowired
-    private DataSource tomcatDataSource;
-
-    @Qualifier("c3p0DS")
-    @Autowired
-    private DataSource c3p0Datasource;
-
-//    @Autowired
-//    @Qualifier("tomcatDS")
-//    public DbcpTestApplication setTomcatDataSource(DataSource tomcatDataSource) {
-//        this.tomcatDataSource = tomcatDataSource;
-//        return this;
-//    }
-//
-//    @Autowired
-//    @Qualifier("c3p0DS")
-//    public DbcpTestApplication setC3p0Datasource(DataSource c3p0Datasource) {
-//        this.c3p0Datasource = c3p0Datasource;
-//        return this;
-//    }
-
-    @Autowired
-    DatabaseBean databaseBean;
     @Autowired
     TestModeBean testModeBean;
+
+    @Qualifier("datasourceRunner")
+    @Autowired
+    List<BaseDatesourceRunner> datasourceRunners;
+
     @Override
     public void run(String... args) throws Exception {
-        System.out.println(databaseBean);
-//        test(c3p0Datasource);
-//        test(c3p0Datasource);
-//        test(tomcatDataSource);
-//        test(tomcatDataSource);
-////        Thread.sleep(120000);
-////        test(tomcatDataSource);
-////        Thread.sleep(120000);
-////        test(c3p0Datasource);
-////        Thread.sleep(120000);
-////        Thread.sleep(120000);
-    }
-
-    private void test(DataSource dataSource) throws SQLException {
-        Date date = new Date();
-        for (int i = 0; i < 10000; i++) {
-            Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("select 1");
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
+        for (TestModeBean.Mode mode : testModeBean.getModes()) {
+            for (BaseDatesourceRunner datasourceRunner : datasourceRunners) {
+                Date date = new Date();
+                datasourceRunner.setMode(mode);
+                datasourceRunner.open();
+                datasourceRunner.test();
+                datasourceRunner.close();
+                System.out.println(datasourceRunner.getDbcpName() + " : " + (new Date().getTime() - date.getTime()));
             }
-            resultSet.close();
-            preparedStatement.close();
-            connection.close();
+            System.out.println("`````````````````````````````````````````````");
         }
-        System.out.println(new Date().getTime() - date.getTime());
+
     }
 }

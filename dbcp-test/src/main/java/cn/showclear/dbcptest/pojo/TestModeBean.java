@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -14,20 +15,20 @@ import java.util.Map;
 /**
  * 测试模式
  * n线程 * m次sql 默认（select 1）
+ * TODO 对sql进行校验
  */
 
-@NoArgsConstructor
 @ConfigurationProperties(prefix = "mode-test")
 @Component
 public class TestModeBean {
 
-    private List<Map<String,String>> modes = new ArrayList<>();
+    private List<Mode> modes = new ArrayList<>();
 
-    public List<Map<String, String>> getModes() {
+    public List<Mode> getModes() {
         return modes;
     }
 
-    public TestModeBean setModes(List<Map<String, String>> modes) {
+    public TestModeBean setModes(List<Mode> modes) {
         this.modes = modes;
         return this;
     }

@@ -1,8 +1,0 @@
-{
-  "properties": [
-    {
-      "name": "modet-test.modes",
-      "type": "java.lang.String",
-      "description": "Description for modet-test.modes."
-  }
-] }
