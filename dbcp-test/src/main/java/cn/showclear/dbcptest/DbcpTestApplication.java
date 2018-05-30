@@ -1,5 +1,7 @@
 package cn.showclear.dbcptest;
 
+import cn.showclear.dbcptest.pojo.DatabaseBean;
+import cn.showclear.dbcptest.pojo.TestModeBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
@@ -42,18 +44,23 @@ public class DbcpTestApplication implements CommandLineRunner {
 //        return this;
 //    }
 
+    @Autowired
+    DatabaseBean databaseBean;
+    @Autowired
+    TestModeBean testModeBean;
     @Override
     public void run(String... args) throws Exception {
-        test(c3p0Datasource);
-        test(c3p0Datasource);
-        test(tomcatDataSource);
-        test(tomcatDataSource);
-//        Thread.sleep(120000);
-//        test(tomcatDataSource);
-//        Thread.sleep(120000);
+        System.out.println(databaseBean);
 //        test(c3p0Datasource);
-//        Thread.sleep(120000);
-//        Thread.sleep(120000);
+//        test(c3p0Datasource);
+//        test(tomcatDataSource);
+//        test(tomcatDataSource);
+////        Thread.sleep(120000);
+////        test(tomcatDataSource);
+////        Thread.sleep(120000);
+////        test(c3p0Datasource);
+////        Thread.sleep(120000);
+////        Thread.sleep(120000);
     }
 
     private void test(DataSource dataSource) throws SQLException {
