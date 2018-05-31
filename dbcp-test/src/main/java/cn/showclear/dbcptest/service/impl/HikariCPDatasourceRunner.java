@@ -35,6 +35,7 @@ public class HikariCPDatasourceRunner extends BaseDatesourceRunner {
     public void close() {
         try {
             this.hikariDataSource.close();
+//            System.out.println(this.hikariDataSource.isClosed());
         } catch (Exception ignore) {
 
         }

@@ -3,6 +3,7 @@ package cn.showclear.dbcptest;
 import cn.showclear.dbcptest.pojo.DatabaseBean;
 import cn.showclear.dbcptest.pojo.TestModeBean;
 import cn.showclear.dbcptest.service.BaseDatesourceRunner;
+import cn.showclear.dbcptest.service.ChartProcesser;
 import cn.showclear.dbcptest.service.DatasourceRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -34,19 +35,29 @@ public class DbcpTestApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        ChartProcesser chartProcesser = new ChartProcesser("数据库连接池对比", "连接池", "毫秒");
         for (TestModeBean.Mode mode : testModeBean.getModes()) {
+
+            String modeTitle = String.format("%d*%din%d sql:%s", mode.getThreadNumber(), mode.getQueryCount(), mode.getPoolSize(), mode.getSql());
             for (BaseDatesourceRunner datasourceRunner : datasourceRunners) {
-                Date date = new Date();
 
-                datasourceRunner.open(mode);
-                datasourceRunner.test();
-                datasourceRunner.close();
+                Integer time;
+                Integer sum = 0;
+                for (int i = 0; i < testModeBean.getAverageCount(); i++) {
+                    Date date = new Date();
+                    datasourceRunner.open(mode);
+                    datasourceRunner.test();
+                    datasourceRunner.close();
+                    sum = new Long(new Date().getTime() - date.getTime()).intValue() + sum;
+                }
+                time = sum / testModeBean.getAverageCount();
 
-                System.out.println(datasourceRunner.getDbcpName() + " : " + (new Date().getTime() - date.getTime()) + " ms | at mode : {poolSIze:" +
+                chartProcesser.addValue(time, datasourceRunner.getDbcpName(), modeTitle);
+                System.out.println(datasourceRunner.getDbcpName() + " : " + time + " ms | at mode : {poolSIze:" +
                         mode.getPoolSize() + ", queryCount: " + mode.getQueryCount() + " ,threadNumber: " + mode.getThreadNumber() + "}");
             }
             System.out.println("`````````````````````````````````````````````");
         }
-
+        chartProcesser.print();
     }
 }

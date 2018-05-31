@@ -31,11 +31,11 @@ public class BbcpConfigure {
     @Bean("datasourceRunner")
     public List<BaseDatesourceRunner> getDatasourceRunner() {
         ArrayList<BaseDatesourceRunner> datasourceRunners = new ArrayList<>();
-        datasourceRunners.add(new HikariCPDatasourceRunner(databaseBean));
         datasourceRunners.add(new DbcpDatasourceRunner(databaseBean));
         datasourceRunners.add(new DruidDatasourceRunner(databaseBean));
         datasourceRunners.add(new C3p0DatasourceRunner(databaseBean));
         datasourceRunners.add(new TomcatJdbcDatasourceRunner(databaseBean));
+        datasourceRunners.add(new HikariCPDatasourceRunner(databaseBean));
         return datasourceRunners;
     }
 }

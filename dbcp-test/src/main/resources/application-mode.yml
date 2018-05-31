@@ -1,4 +1,5 @@
 mode-test:
+  average-count: 3
   modes:
     -
       sql:

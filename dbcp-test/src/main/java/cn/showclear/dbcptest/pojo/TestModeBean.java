@@ -24,12 +24,23 @@ public class TestModeBean {
 
     private List<Mode> modes = new ArrayList<>();
 
+    private Integer averageCount;
+
     public List<Mode> getModes() {
         return modes;
     }
 
     public TestModeBean setModes(List<Mode> modes) {
         this.modes = modes;
+        return this;
+    }
+
+    public Integer getAverageCount() {
+        return averageCount;
+    }
+
+    public TestModeBean setAverageCount(Integer averageCount) {
+        this.averageCount = averageCount;
         return this;
     }
 
