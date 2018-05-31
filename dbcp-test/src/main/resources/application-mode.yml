@@ -1,52 +1,27 @@
 mode-test:
   modes:
     -
-      sql: SELECT 1
+      sql:
       threadNumber: 1
       queryCount: 10000
-      poolSize: 20
+      poolSize: 50
     -
-      sql: SELECT 1
+      sql:
       threadNumber: 1
       queryCount: 50000
-      poolSize: 20
+      poolSize: 50
     -
-      sql: SELECT 1
-      threadNumber: 1
-      queryCount: 100000
-      poolSize: 20
-    -
-      sql: SELECT 1
-      threadNumber: 1
-      queryCount: 100000
-      poolSize: 10
-    -
-      sql: SELECT 1
-      threadNumber: 1
-      queryCount: 100000
-      poolSize: 20
-    -
-      sql: SELECT 1
+      sql:
       threadNumber: 1
       queryCount: 100000
       poolSize: 50
     -
-      sql: SELECT 1
-      threadNumber: 1
-      queryCount: 100000
-      poolSize: 100
+      sql:
+      threadNumber: 100
+      queryCount: 1000
+      poolSize: 50
     -
       sql: SELECT 1
       threadNumber: 100
-      queryCount: 1000
-      poolSize: 10
-    -
-      sql: SELECT 1
-      threadNumber: 1
-      queryCount: 1000
-      poolSize: 20
-    -
-      sql: SELECT 1
-      threadNumber: 1
       queryCount: 1000
       poolSize: 50

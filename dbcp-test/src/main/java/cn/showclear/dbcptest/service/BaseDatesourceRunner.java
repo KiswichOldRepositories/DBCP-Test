@@ -38,13 +38,17 @@ public abstract class BaseDatesourceRunner implements DatasourceRunner {
         return this;
     }
 
+    public DataSource open(TestModeBean.Mode mode) throws Exception {
+        this.mode = mode;
+        return open();
+    }
     /**
      * 核心测试过程
      *
      * @param connection
      * @throws SQLException
      */
-    protected void testProcess(Connection connection) throws SQLException {
+    protected void testPreparedStatement(Connection connection) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(mode.getSql());
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
@@ -52,6 +56,16 @@ public abstract class BaseDatesourceRunner implements DatasourceRunner {
         }
         resultSet.close();
         preparedStatement.close();
+        connection.close();
+    }
+
+    /**
+     * 测试释放链接
+     *
+     * @param connection
+     * @throws SQLException
+     */
+    protected void testOpenAndClose(Connection connection) throws SQLException {
         connection.close();
     }
 
@@ -68,7 +82,11 @@ public abstract class BaseDatesourceRunner implements DatasourceRunner {
                 public void run() {
                     for (int x = 0; x < mode.getQueryCount(); x++) {
                         try {
-                            testProcess(dataSource.getConnection());
+                            if (mode.getSql().trim().equals("")) {
+                                testOpenAndClose(dataSource.getConnection());
+                            } else {
+                                testPreparedStatement(dataSource.getConnection());
+                            }
                         } catch (SQLException e) {
                             e.printStackTrace();
                         }

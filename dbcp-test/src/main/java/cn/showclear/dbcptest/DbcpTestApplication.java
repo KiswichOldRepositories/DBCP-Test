@@ -37,11 +37,13 @@ public class DbcpTestApplication implements CommandLineRunner {
         for (TestModeBean.Mode mode : testModeBean.getModes()) {
             for (BaseDatesourceRunner datasourceRunner : datasourceRunners) {
                 Date date = new Date();
-                datasourceRunner.setMode(mode);
-                datasourceRunner.open();
+
+                datasourceRunner.open(mode);
                 datasourceRunner.test();
                 datasourceRunner.close();
-                System.out.println(datasourceRunner.getDbcpName() + " : " + (new Date().getTime() - date.getTime()));
+
+                System.out.println(datasourceRunner.getDbcpName() + " : " + (new Date().getTime() - date.getTime()) + " ms | at mode : {poolSIze:" +
+                        mode.getPoolSize() + ", queryCount: " + mode.getQueryCount() + " ,threadNumber: " + mode.getThreadNumber() + "}");
             }
             System.out.println("`````````````````````````````````````````````");
         }
