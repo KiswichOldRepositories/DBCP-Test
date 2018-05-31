@@ -6,7 +6,7 @@ import cn.showclear.dbcptest.service.BaseDatesourceRunner;
 import cn.showclear.dbcptest.service.DatasourceRunner;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.stereotype.Service;
-import sun.awt.image.GifImageDecoder;
+
 
 import javax.sql.DataSource;
 
