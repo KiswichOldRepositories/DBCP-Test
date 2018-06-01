@@ -1,4 +1,4 @@
-package cn.showclear.dbcptest.service;
+package cn.showclear.dbcptest.service.processor;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtils;
@@ -9,30 +9,28 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.springframework.stereotype.Component;
 
 import java.awt.*;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
  * 柱状图打印
  */
-public class ChartProcesser {
+public class ChartProcessor {
     private DefaultCategoryDataset categoryDataset = new DefaultCategoryDataset();
     private String imageName = "统计图表";
     private String title;
     private String xTitle;
     private String yTitle;
 
-    public ChartProcesser(String title, String xTitle, String yTitle) {
+    public ChartProcessor(String title, String xTitle, String yTitle) {
         this.title = title;
         this.xTitle = xTitle;
         this.yTitle = yTitle;
     }
 
-    public ChartProcesser(String title, String xTitle, String yTitle, String imageName) {
+    public ChartProcessor(String title, String xTitle, String yTitle, String imageName) {
         this.imageName = imageName;
         this.title = title;
         this.xTitle = xTitle;

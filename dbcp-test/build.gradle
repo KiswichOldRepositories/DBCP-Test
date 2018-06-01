@@ -23,6 +23,9 @@ repositories {
     mavenCentral()
 }
 
+test{//跳过测试
+    exclude '**/*'
+}
 
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-freemarker')
@@ -35,11 +38,27 @@ dependencies {
     compile 'org.apache.tomcat:tomcat-jdbc:7.0.82'
 
     compile 'org.jfree:jfreechart:1.5.0'
+    compile group: 'org.apache.poi', name: 'poi', version: '3.17'
+
     compileOnly "org.springframework.boot:spring-boot-configuration-processor"
 
     runtime('mysql:mysql-connector-java')
     compile('org.projectlombok:lombok')
+    compile group: 'org.fusesource', name: 'sigar', version: '1.6.4'
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('org.springframework.boot:spring-boot-starter-actuator')
+}
+
+task hello(){
+    mustRunAfter(build)
+
+//    def execute = getDependencies().createArtifactResolutionQuery().execute()
+//    for(def com : execute.resolvedComponents){
+//        println(com.toString())
+//    }
+//    println getDependencies().createArtifactResolutionQuery().
+
+    project.get
+    println '11111'
 }

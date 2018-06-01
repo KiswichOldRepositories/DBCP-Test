@@ -1,4 +1,4 @@
-package cn.showclear.dbcptest.dbcp;
+package cn.showclear.dbcptest.pojo;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,8 +16,10 @@ import java.beans.ConstructorProperties;
 /**
  * 手动配置datasources
  * <p>在引入多个连接池包后 {@link DataSourceAutoConfiguration}会对其进行多次初始化</p>
+ * @deprecated {@link cn.showclear.dbcptest.pojo.DatabaseBean}
  */
-@Configuration
+@Deprecated
+//@Configuration
 public class DatasourceConfig {
     @Value("${spring.datasource.username}")
     public String user;
@@ -42,6 +44,4 @@ public class DatasourceConfig {
         basicDataSource.setPassword(passWd);
         return basicDataSource;
     }
-
-
 }

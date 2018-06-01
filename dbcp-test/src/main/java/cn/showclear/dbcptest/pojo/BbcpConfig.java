@@ -1,4 +1,4 @@
-package cn.showclear.dbcptest.dbcp;
+package cn.showclear.dbcptest.pojo;
 
 import cn.showclear.dbcptest.pojo.DatabaseBean;
 import cn.showclear.dbcptest.service.BaseDatesourceRunner;
@@ -12,19 +12,20 @@ import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 全局配置
+ */
 @Configuration
-public class BbcpConfigure {
+public class BbcpConfig {
 
-    private DataSource unpoolDataSource;
     private DatabaseBean databaseBean;
 
     @Autowired
-    public void setUnpoolDataSource(/*@Qualifier("DS") DataSource unpoolDataSource,*/ DatabaseBean databaseBean) {
-//        this.unpoolDataSource = unpoolDataSource;
+    public void setUnpoolDataSource(DatabaseBean databaseBean) {
         this.databaseBean = databaseBean;
     }
 
-    public BbcpConfigure() {
+    public BbcpConfig() {
     }
 
 
