@@ -31,7 +31,6 @@ public class SystemInfoProcessor {
     public SystemInfoProcessor(DatabaseBean databaseBean) {
         try {
             this.copyFileToLocal();
-            this.setSigarPath();
             this.databaseBean = databaseBean;
         } catch (IOException e) {
             logger.error("sigar库文件复制失败！");
@@ -114,6 +113,7 @@ public class SystemInfoProcessor {
         InputStream resourceAsStream = this.getClass().getResourceAsStream("/sigar-amd64-winnt.dll");
         InputStream resourceAsStream1 = this.getClass().getResourceAsStream("/sigar-x86-winnt.dll");
         File tempDir = Files.createTempDir();
+        setSigarPath(tempDir);
         this.temps = tempDir;
 
         File file = new File(tempDir, "sigar-amd64-winnt.dll");
@@ -133,8 +133,13 @@ public class SystemInfoProcessor {
         }
     }
 
-    private void setSigarPath() {
-        System.setProperty("org.hyperic.sigar.path", new File("").getAbsolutePath());
+    /**
+     * sigar会读取环境变量org.hyperic.sigar.path下的路径作为其动态库的路径
+     *
+     * @param directory
+     */
+    private void setSigarPath(File directory) {
+        System.setProperty("org.hyperic.sigar.path", directory.getAbsolutePath());
         System.out.println(new File("").getAbsolutePath());
     }
 
