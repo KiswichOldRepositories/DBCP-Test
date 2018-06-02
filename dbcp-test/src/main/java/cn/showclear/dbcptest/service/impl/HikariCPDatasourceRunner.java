@@ -1,16 +1,13 @@
 package cn.showclear.dbcptest.service.impl;
 
 import cn.showclear.dbcptest.pojo.DatabaseBean;
-import cn.showclear.dbcptest.pojo.TestModeBean;
-import cn.showclear.dbcptest.service.BaseDatesourceRunner;
-import cn.showclear.dbcptest.service.DatasourceRunner;
+import cn.showclear.dbcptest.service.BaseDatasourceRunner;
 import com.zaxxer.hikari.HikariDataSource;
-import org.springframework.stereotype.Service;
 
 
 import javax.sql.DataSource;
 
-public class HikariCPDatasourceRunner extends BaseDatesourceRunner {
+public class HikariCPDatasourceRunner extends BaseDatasourceRunner {
     protected HikariDataSource hikariDataSource;
 
     public HikariCPDatasourceRunner(DatabaseBean databaseBean) {
@@ -26,7 +23,7 @@ public class HikariCPDatasourceRunner extends BaseDatesourceRunner {
         hikariDataSource.setJdbcUrl(databaseBean.getUrl());
         hikariDataSource.setDriverClassName(databaseBean.getDriverClassName());
         hikariDataSource.setMaximumPoolSize(mode.getPoolSize());
-        hikariDataSource.setMinimumIdle(mode.getPoolSize());
+        hikariDataSource.setMinimumIdle(mode.getInitSize());
         this.hikariDataSource = hikariDataSource;
         return hikariDataSource;
     }

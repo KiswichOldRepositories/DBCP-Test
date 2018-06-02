@@ -20,70 +20,22 @@ import java.util.Map;
 
 @ConfigurationProperties(prefix = "mode-test")
 @Component
+@Getter
+@Setter
 public class TestModeBean {
 
     private List<Mode> modes = new ArrayList<>();
-
     private Integer averageCount;
 
-    public List<Mode> getModes() {
-        return modes;
-    }
 
-    public TestModeBean setModes(List<Mode> modes) {
-        this.modes = modes;
-        return this;
-    }
-
-    public Integer getAverageCount() {
-        return averageCount;
-    }
-
-    public TestModeBean setAverageCount(Integer averageCount) {
-        this.averageCount = averageCount;
-        return this;
-    }
-
+    @Getter
+    @Setter
     public static class Mode{
         private String sql;
         private Integer poolSize;
+        private Integer initSize;
         private Integer threadNumber;
         private Integer queryCount;
 
-        public String getSql() {
-            return sql;
-        }
-
-        public Mode setSql(String sql) {
-            this.sql = sql;
-            return this;
-        }
-
-        public Integer getPoolSize() {
-            return poolSize;
-        }
-
-        public Mode setPoolSize(Integer poolSize) {
-            this.poolSize = poolSize;
-            return this;
-        }
-
-        public Integer getThreadNumber() {
-            return threadNumber;
-        }
-
-        public Mode setThreadNumber(Integer threadNumber) {
-            this.threadNumber = threadNumber;
-            return this;
-        }
-
-        public Integer getQueryCount() {
-            return queryCount;
-        }
-
-        public Mode setQueryCount(Integer queryCount) {
-            this.queryCount = queryCount;
-            return this;
-        }
     }
 }

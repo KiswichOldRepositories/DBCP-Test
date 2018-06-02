@@ -11,7 +11,7 @@ buildscript {
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse'
+apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
@@ -23,7 +23,7 @@ repositories {
     mavenCentral()
 }
 
-test{//跳过测试
+test {//跳过测试
     exclude '**/*'
 }
 
@@ -46,19 +46,23 @@ dependencies {
     compile('org.projectlombok:lombok')
     compile group: 'org.fusesource', name: 'sigar', version: '1.6.4'
 
+    compile 'com.google.guava:guava:25.1-android'
+
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('org.springframework.boot:spring-boot-starter-actuator')
 }
 
-task hello(){
-    mustRunAfter(build)
-
-//    def execute = getDependencies().createArtifactResolutionQuery().execute()
-//    for(def com : execute.resolvedComponents){
-//        println(com.toString())
-//    }
-//    println getDependencies().createArtifactResolutionQuery().
-
-    project.get
-    println '11111'
+task writeVersion  {
+    shouldRunAfter(build)
+    def filter = ['druid', 'c3p0', 'dbcp', 'HikariCP', 'tomcat-jdbc']
+    def dbcpNames = []
+    configurations.runtime.incoming.resolutionResult.allDependencies*.from*.toString().each { dependency ->
+        filter.each { name -> if (dependency.contains(name)) dbcpNames.push(dependency) }
+    }
+    new File(getRootDir(), "/src/main/resources/version.md").withWriter { writer ->
+        dbcpNames.each { name -> writer.writeLine(name) }
+    }
+    println 'version.md更新成功'
 }
+
+

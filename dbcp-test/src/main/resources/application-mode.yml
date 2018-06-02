@@ -6,23 +6,29 @@ mode-test:
       threadNumber: 1
       queryCount: 10000
       poolSize: 50
+      initSize: 10
     -
       sql:
       threadNumber: 1
       queryCount: 50000
       poolSize: 50
+      initSize: 10
     -
       sql:
       threadNumber: 1
       queryCount: 100000
       poolSize: 50
+      initSize: 10
     -
       sql:
       threadNumber: 100
       queryCount: 1000
       poolSize: 50
+      initSize: 10
     -
       sql: SELECT 1
       threadNumber: 100
       queryCount: 1000
       poolSize: 50
+      initSize: 10
+

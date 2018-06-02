@@ -1,18 +1,14 @@
 package cn.showclear.dbcptest.service.impl;
 
 import cn.showclear.dbcptest.pojo.DatabaseBean;
-import cn.showclear.dbcptest.pojo.TestModeBean;
-import cn.showclear.dbcptest.service.BaseDatesourceRunner;
-import cn.showclear.dbcptest.service.DatasourceRunner;
+import cn.showclear.dbcptest.service.BaseDatasourceRunner;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
-import java.sql.SQLException;
 
 
-public class C3p0DatasourceRunner extends BaseDatesourceRunner {
+public class C3p0DatasourceRunner extends BaseDatasourceRunner {
 
     private ComboPooledDataSource comboPooledDataSource;
 
@@ -30,7 +26,7 @@ public class C3p0DatasourceRunner extends BaseDatesourceRunner {
         this.comboPooledDataSource.setUser(databaseBean.getUsername());
         this.comboPooledDataSource.setPassword(databaseBean.getPassword());
 
-        this.comboPooledDataSource.setMinPoolSize(mode.getPoolSize());
+        this.comboPooledDataSource.setInitialPoolSize(mode.getInitSize());
         this.comboPooledDataSource.setMaxPoolSize(mode.getPoolSize());
         return this.comboPooledDataSource;
     }
