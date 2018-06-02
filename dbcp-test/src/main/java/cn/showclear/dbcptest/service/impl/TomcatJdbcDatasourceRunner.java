@@ -1,15 +1,12 @@
 package cn.showclear.dbcptest.service.impl;
 
 import cn.showclear.dbcptest.pojo.DatabaseBean;
-import cn.showclear.dbcptest.pojo.TestModeBean;
-import cn.showclear.dbcptest.service.BaseDatesourceRunner;
-import cn.showclear.dbcptest.service.DatasourceRunner;
+import cn.showclear.dbcptest.service.BaseDatasourceRunner;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
-import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
 
-public class TomcatJdbcDatasourceRunner extends BaseDatesourceRunner {
+public class TomcatJdbcDatasourceRunner extends BaseDatasourceRunner {
 
     private org.apache.tomcat.jdbc.pool.DataSource tomcatDatasource;
 
@@ -25,7 +22,7 @@ public class TomcatJdbcDatasourceRunner extends BaseDatesourceRunner {
         p.setDriverClassName(databaseBean.getDriverClassName());
         p.setUsername(databaseBean.getUsername());
         p.setPassword(databaseBean.getPassword());
-        p.setInitialSize(mode.getPoolSize());
+        p.setInitialSize(mode.getInitSize());
         p.setMaxActive(mode.getPoolSize());
 
         this.tomcatDatasource = new org.apache.tomcat.jdbc.pool.DataSource();

@@ -2,6 +2,8 @@ package cn.showclear.dbcptest.service;
 
 import cn.showclear.dbcptest.pojo.DatabaseBean;
 import cn.showclear.dbcptest.pojo.TestModeBean;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -10,33 +12,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.concurrent.CountDownLatch;
 
-public abstract class BaseDatesourceRunner implements DatasourceRunner {
+@Getter
+@Setter
+public abstract class BaseDatasourceRunner implements DatasourceRunner {
     protected String DbcpName;
     protected DatabaseBean databaseBean;
     protected TestModeBean.Mode mode;
     public CountDownLatch countDownLatch;
 
-    public BaseDatesourceRunner(DatabaseBean databaseBean) {
+    public BaseDatasourceRunner(DatabaseBean databaseBean) {
         this.databaseBean = databaseBean;
     }
 
-    public TestModeBean.Mode getMode() {
-        return mode;
-    }
-
-    public BaseDatesourceRunner setMode(TestModeBean.Mode mode) {
-        this.mode = mode;
-        return this;
-    }
-
-    public String getDbcpName() {
-        return DbcpName;
-    }
-
-    public BaseDatesourceRunner setDbcpName(String dbcpName) {
-        DbcpName = dbcpName;
-        return this;
-    }
 
     public DataSource open(TestModeBean.Mode mode) throws Exception {
         this.mode = mode;

@@ -1,17 +1,14 @@
 package cn.showclear.dbcptest.service.impl;
 
 import cn.showclear.dbcptest.pojo.DatabaseBean;
-import cn.showclear.dbcptest.pojo.TestModeBean;
-import cn.showclear.dbcptest.service.BaseDatesourceRunner;
-import cn.showclear.dbcptest.service.DatasourceRunner;
+import cn.showclear.dbcptest.service.BaseDatasourceRunner;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.pool.DruidDataSourceFactory;
-import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
 import java.util.Properties;
 
-public class DruidDatasourceRunner extends BaseDatesourceRunner {
+public class DruidDatasourceRunner extends BaseDatasourceRunner {
     protected DruidDataSource druidDataSource;
 
     public DruidDatasourceRunner(DatabaseBean databaseBean) {
@@ -26,10 +23,8 @@ public class DruidDatasourceRunner extends BaseDatesourceRunner {
         properties.setProperty("url", databaseBean.getUrl());
         properties.setProperty("username", databaseBean.getUsername());
         properties.setProperty("password", databaseBean.getPassword());
-        properties.setProperty("initialSize", String.valueOf(mode.getPoolSize()));
+        properties.setProperty("initialSize", String.valueOf(mode.getInitSize()));
         properties.setProperty("maxActive", String.valueOf(mode.getPoolSize()));
-        properties.setProperty("maxTotal", String.valueOf(mode.getPoolSize()));
-        properties.setProperty("minIdle", String.valueOf(mode.getPoolSize()));
         this.druidDataSource = (DruidDataSource) DruidDataSourceFactory.createDataSource(properties);
         return this.druidDataSource;
     }

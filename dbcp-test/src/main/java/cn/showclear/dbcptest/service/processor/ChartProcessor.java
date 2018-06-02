@@ -1,5 +1,6 @@
 package cn.showclear.dbcptest.service.processor;
 
+import cn.showclear.dbcptest.pojo.TestResultsEntity;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
@@ -39,6 +40,15 @@ public class ChartProcessor {
 
     public void addValue(Integer value, String category, String columnKey) {
         categoryDataset.addValue(value, category, columnKey);
+    }
+
+    public void print(TestResultsEntity testResultsEntity) {
+        for (TestResultsEntity.TestResult result : testResultsEntity.getTestResults()) {
+            for (String key : result.getTimes().keySet()) {
+                this.addValue(result.getTimes().get(key), key, result.getTestMode());
+            }
+        }
+        this.print();
     }
 
     public void print() {

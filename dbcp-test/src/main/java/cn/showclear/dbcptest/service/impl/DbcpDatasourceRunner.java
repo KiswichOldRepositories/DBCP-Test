@@ -1,17 +1,15 @@
 package cn.showclear.dbcptest.service.impl;
 
 import cn.showclear.dbcptest.pojo.DatabaseBean;
-import cn.showclear.dbcptest.pojo.TestModeBean;
-import cn.showclear.dbcptest.service.BaseDatesourceRunner;
+import cn.showclear.dbcptest.service.BaseDatasourceRunner;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.dbcp2.BasicDataSourceFactory;
-import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
 import java.util.Properties;
 
 
-public class DbcpDatasourceRunner extends BaseDatesourceRunner {
+public class DbcpDatasourceRunner extends BaseDatasourceRunner {
     protected BasicDataSource dbcpDataSource;
 
     public DbcpDatasourceRunner(DatabaseBean databaseBean) {
@@ -26,10 +24,9 @@ public class DbcpDatasourceRunner extends BaseDatesourceRunner {
         properties.setProperty("url", databaseBean.getUrl());
         properties.setProperty("username", databaseBean.getUsername());
         properties.setProperty("password", databaseBean.getPassword());
-        properties.setProperty("initialSize", String.valueOf(mode.getPoolSize()));
+
+        properties.setProperty("initialSize", String.valueOf(mode.getInitSize()));
         properties.setProperty("maxActive", String.valueOf(mode.getPoolSize()));
-        properties.setProperty("maxTotal", String.valueOf(mode.getPoolSize()));
-        properties.setProperty("minIdle", String.valueOf(mode.getPoolSize()));
         this.dbcpDataSource = BasicDataSourceFactory.createDataSource(properties);
         return this.dbcpDataSource;
     }

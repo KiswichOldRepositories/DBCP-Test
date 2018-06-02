@@ -1,14 +1,12 @@
 package cn.showclear.dbcptest.pojo;
 
-import cn.showclear.dbcptest.pojo.DatabaseBean;
-import cn.showclear.dbcptest.service.BaseDatesourceRunner;
+import cn.showclear.dbcptest.service.BaseDatasourceRunner;
 import cn.showclear.dbcptest.service.impl.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,8 +28,8 @@ public class BbcpConfig {
 
 
     @Bean("datasourceRunner")
-    public List<BaseDatesourceRunner> getDatasourceRunner() {
-        ArrayList<BaseDatesourceRunner> datasourceRunners = new ArrayList<>();
+    public List<BaseDatasourceRunner> getDatasourceRunner() {
+        ArrayList<BaseDatasourceRunner> datasourceRunners = new ArrayList<>();
         datasourceRunners.add(new DbcpDatasourceRunner(databaseBean));
         datasourceRunners.add(new DruidDatasourceRunner(databaseBean));
         datasourceRunners.add(new C3p0DatasourceRunner(databaseBean));
