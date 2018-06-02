@@ -9,7 +9,7 @@ a test of DBCP in （c3p0、dbcp、druid、tomcat-jdbc、hikaricp），with gene
 
 please put Profile-specific Properties on running Directory ,which report will generating in.
 
-#command
+# command
 + config : generate two Profile-specific Properties on running Directory
 > eg: java -jar dbcp-test.jar config
 + : run script
