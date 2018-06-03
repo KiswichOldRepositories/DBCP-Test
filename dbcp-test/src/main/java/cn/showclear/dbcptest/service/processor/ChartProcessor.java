@@ -11,6 +11,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.category.DefaultCategoryDataset;
 
+import javax.xml.transform.Source;
 import java.awt.*;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -49,6 +50,7 @@ public class ChartProcessor {
             }
         }
         this.print();
+        System.out.println("已输出柱状统计图...");
     }
 
     public void print() {

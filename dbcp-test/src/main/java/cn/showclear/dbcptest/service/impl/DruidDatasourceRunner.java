@@ -23,7 +23,7 @@ public class DruidDatasourceRunner extends BaseDatasourceRunner {
         properties.setProperty("url", databaseBean.getUrl());
         properties.setProperty("username", databaseBean.getUsername());
         properties.setProperty("password", databaseBean.getPassword());
-        properties.setProperty("initialSize", String.valueOf(mode.getInitSize()));
+        properties.setProperty("minIdle", String.valueOf(mode.getInitSize()));
         properties.setProperty("maxActive", String.valueOf(mode.getPoolSize()));
         this.druidDataSource = (DruidDataSource) DruidDataSourceFactory.createDataSource(properties);
         return this.druidDataSource;

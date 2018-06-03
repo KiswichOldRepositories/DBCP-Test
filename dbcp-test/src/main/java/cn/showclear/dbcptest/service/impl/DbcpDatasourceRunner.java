@@ -5,6 +5,7 @@ import cn.showclear.dbcptest.service.BaseDatasourceRunner;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.dbcp2.BasicDataSourceFactory;
 
+import javax.naming.InitialContext;
 import javax.sql.DataSource;
 import java.util.Properties;
 
@@ -28,6 +29,7 @@ public class DbcpDatasourceRunner extends BaseDatasourceRunner {
         properties.setProperty("initialSize", String.valueOf(mode.getInitSize()));
         properties.setProperty("maxActive", String.valueOf(mode.getPoolSize()));
         this.dbcpDataSource = BasicDataSourceFactory.createDataSource(properties);
+
         return this.dbcpDataSource;
     }
 
